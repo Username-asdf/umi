@@ -23,4 +23,63 @@
 2.  修改db.properties文件
 3.  注册阿里云短信服务，修改config.properties文件
 
+### 数据库说明
+
+3.1.1 数据存储设计
+用户表（user）：
+列名	类型及精度
+userId	bigint(20)
+username	varchar(50)
+password	varchar(20)
+phoneNum	varchar(11)
+userIcon	varchar(100)
+userSex	char(4)
+regDate	timestamp
+mail	varchar(50)
+exp	big(int)
+intro	varchar(300)
+freePoint	int(11)
+payPoint	int(11)
+
+帖子表（post）:
+列名	类型及精度
+postId	bigint(20)
+userId	bigint(20)
+displayInfo	text
+hiddenInfo	text
+postName	text
+likeNum	bigint(20)
+hateNum	bigint(20)
+browseNum	bigint(20)
+time	timestamp
+checkTime	timestamp
+adminId	bigint(20)
+sortId	int(11)
+point	int(11)
+source	bigint(20)
+
+
+
+
+评论表（comment）:
+列名	类型及精度
+commId	bigint(20)
+postID	bigint(20)
+comm	text
+fkCommId	bigint(20)
+userId	bigint(20)
+sendTime	timestamp
+reportNum	bigint(20)
+likeNum	bigint(20)
+hateNum	bigint(20)
+
+用户求资源表（request）:
+列名	类型及精度
+requestId	bigint(20)
+usersId	bigint(20)
+title	text
+descInfo	text
+time	timestamp
+accpet	bigint(20)
+finish	int(11)
 
