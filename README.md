@@ -15,6 +15,7 @@
 5.用户中心
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0324/121630_6a8d4796_8843053.png "屏幕截图.png")
 
+登录入口：  /umi
 
 #### 安装教程
 
