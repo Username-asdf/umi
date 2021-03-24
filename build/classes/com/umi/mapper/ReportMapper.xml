@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.umi.mapper.ReportMapper">
+  <resultMap id="BaseResultMap" type="com.umi.pojo.Report">
+    <id column="reportId" jdbcType="BIGINT" property="reportid" />
+    <result column="postId" jdbcType="BIGINT" property="postid" />
+    <result column="usersId" jdbcType="BIGINT" property="usersid" />
+    <result column="isCheck" jdbcType="INTEGER" property="ischeck" />
+    <result column="reportTime" jdbcType="TIMESTAMP" property="reporttime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.umi.pojo.Report">
+    <result column="cause" jdbcType="LONGVARCHAR" property="cause" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    reportId, postId, usersId, isCheck, reportTime
+  </sql>
+  <sql id="Blob_Column_List">
+    cause
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.umi.pojo.ReportExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from report
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.umi.pojo.ReportExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from report
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from report
+    where reportId = #{reportid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from report
+    where reportId = #{reportid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.umi.pojo.ReportExample">
+    delete from report
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.umi.pojo.Report">
+    insert into report (reportId, postId, usersId, 
+      isCheck, reportTime, cause
+      )
+    values (#{reportid,jdbcType=BIGINT}, #{postid,jdbcType=BIGINT}, #{usersid,jdbcType=BIGINT}, 
+      #{ischeck,jdbcType=INTEGER}, #{reporttime,jdbcType=TIMESTAMP}, #{cause,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.umi.pojo.Report">
+    insert into report
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="reportid != null">
+        reportId,
+      </if>
+      <if test="postid != null">
+        postId,
+      </if>
+      <if test="usersid != null">
+        usersId,
+      </if>
+      <if test="ischeck != null">
+        isCheck,
+      </if>
+      <if test="reporttime != null">
+        reportTime,
+      </if>
+      <if test="cause != null">
+        cause,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="reportid != null">
+        #{reportid,jdbcType=BIGINT},
+      </if>
+      <if test="postid != null">
+        #{postid,jdbcType=BIGINT},
+      </if>
+      <if test="usersid != null">
+        #{usersid,jdbcType=BIGINT},
+      </if>
+      <if test="ischeck != null">
+        #{ischeck,jdbcType=INTEGER},
+      </if>
+      <if test="reporttime != null">
+        #{reporttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cause != null">
+        #{cause,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.umi.pojo.ReportExample" resultType="java.lang.Long">
+    select count(*) from report
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update report
+    <set>
+      <if test="record.reportid != null">
+        reportId = #{record.reportid,jdbcType=BIGINT},
+      </if>
+      <if test="record.postid != null">
+        postId = #{record.postid,jdbcType=BIGINT},
+      </if>
+      <if test="record.usersid != null">
+        usersId = #{record.usersid,jdbcType=BIGINT},
+      </if>
+      <if test="record.ischeck != null">
+        isCheck = #{record.ischeck,jdbcType=INTEGER},
+      </if>
+      <if test="record.reporttime != null">
+        reportTime = #{record.reporttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cause != null">
+        cause = #{record.cause,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update report
+    set reportId = #{record.reportid,jdbcType=BIGINT},
+      postId = #{record.postid,jdbcType=BIGINT},
+      usersId = #{record.usersid,jdbcType=BIGINT},
+      isCheck = #{record.ischeck,jdbcType=INTEGER},
+      reportTime = #{record.reporttime,jdbcType=TIMESTAMP},
+      cause = #{record.cause,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update report
+    set reportId = #{record.reportid,jdbcType=BIGINT},
+      postId = #{record.postid,jdbcType=BIGINT},
+      usersId = #{record.usersid,jdbcType=BIGINT},
+      isCheck = #{record.ischeck,jdbcType=INTEGER},
+      reportTime = #{record.reporttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.umi.pojo.Report">
+    update report
+    <set>
+      <if test="postid != null">
+        postId = #{postid,jdbcType=BIGINT},
+      </if>
+      <if test="usersid != null">
+        usersId = #{usersid,jdbcType=BIGINT},
+      </if>
+      <if test="ischeck != null">
+        isCheck = #{ischeck,jdbcType=INTEGER},
+      </if>
+      <if test="reporttime != null">
+        reportTime = #{reporttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cause != null">
+        cause = #{cause,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where reportId = #{reportid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.umi.pojo.Report">
+    update report
+    set postId = #{postid,jdbcType=BIGINT},
+      usersId = #{usersid,jdbcType=BIGINT},
+      isCheck = #{ischeck,jdbcType=INTEGER},
+      reportTime = #{reporttime,jdbcType=TIMESTAMP},
+      cause = #{cause,jdbcType=LONGVARCHAR}
+    where reportId = #{reportid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.umi.pojo.Report">
+    update report
+    set postId = #{postid,jdbcType=BIGINT},
+      usersId = #{usersid,jdbcType=BIGINT},
+      isCheck = #{ischeck,jdbcType=INTEGER},
+      reportTime = #{reporttime,jdbcType=TIMESTAMP}
+    where reportId = #{reportid,jdbcType=BIGINT}
+  </update>
+</mapper>

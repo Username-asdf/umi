@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.umi.mapper.UsersMapper">
+  <resultMap id="BaseResultMap" type="com.umi.pojo.Users">
+    <id column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="phoneNum" jdbcType="VARCHAR" property="phonenum" />
+    <result column="userIcon" jdbcType="VARCHAR" property="usericon" />
+    <result column="userSex" jdbcType="CHAR" property="usersex" />
+    <result column="regDate" jdbcType="TIMESTAMP" property="regdate" />
+    <result column="mail" jdbcType="VARCHAR" property="mail" />
+    <result column="exp" jdbcType="BIGINT" property="exp" />
+    <result column="intro" jdbcType="VARCHAR" property="intro" />
+    <result column="freePoint" jdbcType="INTEGER" property="freepoint" />
+    <result column="payPoint" jdbcType="INTEGER" property="paypoint" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    userId, username, password, phoneNum, userIcon, userSex, regDate, mail, exp, intro, 
+    freePoint, payPoint
+  </sql>
+  <select id="selectByExample" parameterType="com.umi.pojo.UsersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where userId = #{userid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from users
+    where userId = #{userid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.umi.pojo.UsersExample">
+    delete from users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.umi.pojo.Users">
+    insert into users (userId, username, password, 
+      phoneNum, userIcon, userSex, 
+      regDate, mail, exp, 
+      intro, freePoint, payPoint
+      )
+    values (#{userid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{phonenum,jdbcType=VARCHAR}, #{usericon,jdbcType=VARCHAR}, #{usersex,jdbcType=CHAR}, 
+      #{regdate,jdbcType=TIMESTAMP}, #{mail,jdbcType=VARCHAR}, #{exp,jdbcType=BIGINT}, 
+      #{intro,jdbcType=VARCHAR}, #{freepoint,jdbcType=INTEGER}, #{paypoint,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.umi.pojo.Users">
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="phonenum != null">
+        phoneNum,
+      </if>
+      <if test="usericon != null">
+        userIcon,
+      </if>
+      <if test="usersex != null">
+        userSex,
+      </if>
+      <if test="regdate != null">
+        regDate,
+      </if>
+      <if test="mail != null">
+        mail,
+      </if>
+      <if test="exp != null">
+        exp,
+      </if>
+      <if test="intro != null">
+        intro,
+      </if>
+      <if test="freepoint != null">
+        freePoint,
+      </if>
+      <if test="paypoint != null">
+        payPoint,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenum != null">
+        #{phonenum,jdbcType=VARCHAR},
+      </if>
+      <if test="usericon != null">
+        #{usericon,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null">
+        #{usersex,jdbcType=CHAR},
+      </if>
+      <if test="regdate != null">
+        #{regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mail != null">
+        #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="exp != null">
+        #{exp,jdbcType=BIGINT},
+      </if>
+      <if test="intro != null">
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="freepoint != null">
+        #{freepoint,jdbcType=INTEGER},
+      </if>
+      <if test="paypoint != null">
+        #{paypoint,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.umi.pojo.UsersExample" resultType="java.lang.Long">
+    select count(*) from users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update users
+    <set>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phonenum != null">
+        phoneNum = #{record.phonenum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usericon != null">
+        userIcon = #{record.usericon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usersex != null">
+        userSex = #{record.usersex,jdbcType=CHAR},
+      </if>
+      <if test="record.regdate != null">
+        regDate = #{record.regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mail != null">
+        mail = #{record.mail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exp != null">
+        exp = #{record.exp,jdbcType=BIGINT},
+      </if>
+      <if test="record.intro != null">
+        intro = #{record.intro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.freepoint != null">
+        freePoint = #{record.freepoint,jdbcType=INTEGER},
+      </if>
+      <if test="record.paypoint != null">
+        payPoint = #{record.paypoint,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update users
+    set userId = #{record.userid,jdbcType=BIGINT},
+      username = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      phoneNum = #{record.phonenum,jdbcType=VARCHAR},
+      userIcon = #{record.usericon,jdbcType=VARCHAR},
+      userSex = #{record.usersex,jdbcType=CHAR},
+      regDate = #{record.regdate,jdbcType=TIMESTAMP},
+      mail = #{record.mail,jdbcType=VARCHAR},
+      exp = #{record.exp,jdbcType=BIGINT},
+      intro = #{record.intro,jdbcType=VARCHAR},
+      freePoint = #{record.freepoint,jdbcType=INTEGER},
+      payPoint = #{record.paypoint,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.umi.pojo.Users">
+    update users
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenum != null">
+        phoneNum = #{phonenum,jdbcType=VARCHAR},
+      </if>
+      <if test="usericon != null">
+        userIcon = #{usericon,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null">
+        userSex = #{usersex,jdbcType=CHAR},
+      </if>
+      <if test="regdate != null">
+        regDate = #{regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mail != null">
+        mail = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="exp != null">
+        exp = #{exp,jdbcType=BIGINT},
+      </if>
+      <if test="intro != null">
+        intro = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="freepoint != null">
+        freePoint = #{freepoint,jdbcType=INTEGER},
+      </if>
+      <if test="paypoint != null">
+        payPoint = #{paypoint,jdbcType=INTEGER},
+      </if>
+    </set>
+    where userId = #{userid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.umi.pojo.Users">
+    update users
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      phoneNum = #{phonenum,jdbcType=VARCHAR},
+      userIcon = #{usericon,jdbcType=VARCHAR},
+      userSex = #{usersex,jdbcType=CHAR},
+      regDate = #{regdate,jdbcType=TIMESTAMP},
+      mail = #{mail,jdbcType=VARCHAR},
+      exp = #{exp,jdbcType=BIGINT},
+      intro = #{intro,jdbcType=VARCHAR},
+      freePoint = #{freepoint,jdbcType=INTEGER},
+      payPoint = #{paypoint,jdbcType=INTEGER}
+    where userId = #{userid,jdbcType=BIGINT}
+  </update>
+</mapper>

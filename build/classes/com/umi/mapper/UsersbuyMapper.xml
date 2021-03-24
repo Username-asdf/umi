@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.umi.mapper.UsersbuyMapper">
+  <resultMap id="BaseResultMap" type="com.umi.pojo.Usersbuy">
+    <id column="usersBuyId" jdbcType="BIGINT" property="usersbuyid" />
+    <result column="usersId" jdbcType="BIGINT" property="usersid" />
+    <result column="postId" jdbcType="BIGINT" property="postid" />
+    <result column="buyTime" jdbcType="TIMESTAMP" property="buytime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    usersBuyId, usersId, postId, buyTime
+  </sql>
+  <select id="selectByExample" parameterType="com.umi.pojo.UsersbuyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from usersbuy
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from usersbuy
+    where usersBuyId = #{usersbuyid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from usersbuy
+    where usersBuyId = #{usersbuyid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.umi.pojo.UsersbuyExample">
+    delete from usersbuy
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.umi.pojo.Usersbuy">
+    insert into usersbuy (usersBuyId, usersId, postId, 
+      buyTime)
+    values (#{usersbuyid,jdbcType=BIGINT}, #{usersid,jdbcType=BIGINT}, #{postid,jdbcType=BIGINT}, 
+      #{buytime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.umi.pojo.Usersbuy">
+    insert into usersbuy
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="usersbuyid != null">
+        usersBuyId,
+      </if>
+      <if test="usersid != null">
+        usersId,
+      </if>
+      <if test="postid != null">
+        postId,
+      </if>
+      <if test="buytime != null">
+        buyTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="usersbuyid != null">
+        #{usersbuyid,jdbcType=BIGINT},
+      </if>
+      <if test="usersid != null">
+        #{usersid,jdbcType=BIGINT},
+      </if>
+      <if test="postid != null">
+        #{postid,jdbcType=BIGINT},
+      </if>
+      <if test="buytime != null">
+        #{buytime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.umi.pojo.UsersbuyExample" resultType="java.lang.Long">
+    select count(*) from usersbuy
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update usersbuy
+    <set>
+      <if test="record.usersbuyid != null">
+        usersBuyId = #{record.usersbuyid,jdbcType=BIGINT},
+      </if>
+      <if test="record.usersid != null">
+        usersId = #{record.usersid,jdbcType=BIGINT},
+      </if>
+      <if test="record.postid != null">
+        postId = #{record.postid,jdbcType=BIGINT},
+      </if>
+      <if test="record.buytime != null">
+        buyTime = #{record.buytime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update usersbuy
+    set usersBuyId = #{record.usersbuyid,jdbcType=BIGINT},
+      usersId = #{record.usersid,jdbcType=BIGINT},
+      postId = #{record.postid,jdbcType=BIGINT},
+      buyTime = #{record.buytime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.umi.pojo.Usersbuy">
+    update usersbuy
+    <set>
+      <if test="usersid != null">
+        usersId = #{usersid,jdbcType=BIGINT},
+      </if>
+      <if test="postid != null">
+        postId = #{postid,jdbcType=BIGINT},
+      </if>
+      <if test="buytime != null">
+        buyTime = #{buytime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where usersBuyId = #{usersbuyid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.umi.pojo.Usersbuy">
+    update usersbuy
+    set usersId = #{usersid,jdbcType=BIGINT},
+      postId = #{postid,jdbcType=BIGINT},
+      buyTime = #{buytime,jdbcType=TIMESTAMP}
+    where usersBuyId = #{usersbuyid,jdbcType=BIGINT}
+  </update>
+</mapper>

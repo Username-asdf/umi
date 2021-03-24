@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.umi.mapper.FriendsMapper">
+  <resultMap id="BaseResultMap" type="com.umi.pojo.Friends">
+    <id column="fId" jdbcType="BIGINT" property="fid" />
+    <result column="beAttendUserId" jdbcType="BIGINT" property="beattenduserid" />
+    <result column="attendUserId" jdbcType="BIGINT" property="attenduserid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    fId, beAttendUserId, attendUserId
+  </sql>
+  <select id="selectByExample" parameterType="com.umi.pojo.FriendsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from friends
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from friends
+    where fId = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from friends
+    where fId = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.umi.pojo.FriendsExample">
+    delete from friends
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.umi.pojo.Friends">
+    insert into friends (fId, beAttendUserId, attendUserId
+      )
+    values (#{fid,jdbcType=BIGINT}, #{beattenduserid,jdbcType=BIGINT}, #{attenduserid,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.umi.pojo.Friends">
+    insert into friends
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fid != null">
+        fId,
+      </if>
+      <if test="beattenduserid != null">
+        beAttendUserId,
+      </if>
+      <if test="attenduserid != null">
+        attendUserId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fid != null">
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="beattenduserid != null">
+        #{beattenduserid,jdbcType=BIGINT},
+      </if>
+      <if test="attenduserid != null">
+        #{attenduserid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.umi.pojo.FriendsExample" resultType="java.lang.Long">
+    select count(*) from friends
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update friends
+    <set>
+      <if test="record.fid != null">
+        fId = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.beattenduserid != null">
+        beAttendUserId = #{record.beattenduserid,jdbcType=BIGINT},
+      </if>
+      <if test="record.attenduserid != null">
+        attendUserId = #{record.attenduserid,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update friends
+    set fId = #{record.fid,jdbcType=BIGINT},
+      beAttendUserId = #{record.beattenduserid,jdbcType=BIGINT},
+      attendUserId = #{record.attenduserid,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.umi.pojo.Friends">
+    update friends
+    <set>
+      <if test="beattenduserid != null">
+        beAttendUserId = #{beattenduserid,jdbcType=BIGINT},
+      </if>
+      <if test="attenduserid != null">
+        attendUserId = #{attenduserid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where fId = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.umi.pojo.Friends">
+    update friends
+    set beAttendUserId = #{beattenduserid,jdbcType=BIGINT},
+      attendUserId = #{attenduserid,jdbcType=BIGINT}
+    where fId = #{fid,jdbcType=BIGINT}
+  </update>
+</mapper>

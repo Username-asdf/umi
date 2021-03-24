@@ -1,0 +1,31 @@
+#content_ta{
+	border:solid 1px #EEE;
+	border-bottom:0px;
+}
+#content_ta tr{
+	height:35px;
+}
+.title_td{
+	width:200px;
+}
+.time_td{
+	width:150px;
+}
+.brw_td{
+	width:80px;
+}
+.lh_td{
+	width:80px;
+}
+.opr_td{
+	width:150px;
+}
+.reason_td{
+	width:220px;
+	padding-left:5px;
+	border-bottom:solid 1px #EEE;
+}
+.title_td,.time_td,.brw_td,.lh_td,.opr_td{
+	text-align:center;
+	border-bottom:solid 1px #EEE;
+}

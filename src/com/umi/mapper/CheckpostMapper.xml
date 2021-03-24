@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.umi.mapper.CheckpostMapper">
+  <resultMap id="BaseResultMap" type="com.umi.pojo.Checkpost">
+    <id column="postId" jdbcType="BIGINT" property="postid" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="sortId" jdbcType="INTEGER" property="sortid" />
+    <result column="point" jdbcType="INTEGER" property="point" />
+    <result column="source" jdbcType="BIGINT" property="source" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.umi.pojo.CheckpostWithBLOBs">
+    <result column="displayInfo" jdbcType="LONGVARCHAR" property="displayinfo" />
+    <result column="hiddenInfo" jdbcType="LONGVARCHAR" property="hiddeninfo" />
+    <result column="resourceAddr" jdbcType="LONGVARCHAR" property="resourceaddr" />
+    <result column="postName" jdbcType="LONGVARCHAR" property="postname" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    postId, userId, time, sortId, point, source
+  </sql>
+  <sql id="Blob_Column_List">
+    displayInfo, hiddenInfo, resourceAddr, postName
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.umi.pojo.CheckpostExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from checkpost
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.umi.pojo.CheckpostExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from checkpost
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from checkpost
+    where postId = #{postid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from checkpost
+    where postId = #{postid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.umi.pojo.CheckpostExample">
+    delete from checkpost
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.umi.pojo.CheckpostWithBLOBs">
+    insert into checkpost (postId, userId, time, 
+      sortId, point, source, 
+      displayInfo, hiddenInfo, resourceAddr, 
+      postName)
+    values (#{postid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{time,jdbcType=TIMESTAMP}, 
+      #{sortid,jdbcType=INTEGER}, #{point,jdbcType=INTEGER}, #{source,jdbcType=BIGINT}, 
+      #{displayinfo,jdbcType=LONGVARCHAR}, #{hiddeninfo,jdbcType=LONGVARCHAR}, #{resourceaddr,jdbcType=LONGVARCHAR}, 
+      #{postname,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.umi.pojo.CheckpostWithBLOBs">
+    insert into checkpost
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="postid != null">
+        postId,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="sortid != null">
+        sortId,
+      </if>
+      <if test="point != null">
+        point,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="displayinfo != null">
+        displayInfo,
+      </if>
+      <if test="hiddeninfo != null">
+        hiddenInfo,
+      </if>
+      <if test="resourceaddr != null">
+        resourceAddr,
+      </if>
+      <if test="postname != null">
+        postName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="postid != null">
+        #{postid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sortid != null">
+        #{sortid,jdbcType=INTEGER},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=BIGINT},
+      </if>
+      <if test="displayinfo != null">
+        #{displayinfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hiddeninfo != null">
+        #{hiddeninfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="resourceaddr != null">
+        #{resourceaddr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="postname != null">
+        #{postname,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.umi.pojo.CheckpostExample" resultType="java.lang.Long">
+    select count(*) from checkpost
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update checkpost
+    <set>
+      <if test="record.postid != null">
+        postId = #{record.postid,jdbcType=BIGINT},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sortid != null">
+        sortId = #{record.sortid,jdbcType=INTEGER},
+      </if>
+      <if test="record.point != null">
+        point = #{record.point,jdbcType=INTEGER},
+      </if>
+      <if test="record.source != null">
+        source = #{record.source,jdbcType=BIGINT},
+      </if>
+      <if test="record.displayinfo != null">
+        displayInfo = #{record.displayinfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.hiddeninfo != null">
+        hiddenInfo = #{record.hiddeninfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.resourceaddr != null">
+        resourceAddr = #{record.resourceaddr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.postname != null">
+        postName = #{record.postname,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update checkpost
+    set postId = #{record.postid,jdbcType=BIGINT},
+      userId = #{record.userid,jdbcType=BIGINT},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      sortId = #{record.sortid,jdbcType=INTEGER},
+      point = #{record.point,jdbcType=INTEGER},
+      source = #{record.source,jdbcType=BIGINT},
+      displayInfo = #{record.displayinfo,jdbcType=LONGVARCHAR},
+      hiddenInfo = #{record.hiddeninfo,jdbcType=LONGVARCHAR},
+      resourceAddr = #{record.resourceaddr,jdbcType=LONGVARCHAR},
+      postName = #{record.postname,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update checkpost
+    set postId = #{record.postid,jdbcType=BIGINT},
+      userId = #{record.userid,jdbcType=BIGINT},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      sortId = #{record.sortid,jdbcType=INTEGER},
+      point = #{record.point,jdbcType=INTEGER},
+      source = #{record.source,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.umi.pojo.CheckpostWithBLOBs">
+    update checkpost
+    <set>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sortid != null">
+        sortId = #{sortid,jdbcType=INTEGER},
+      </if>
+      <if test="point != null">
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=BIGINT},
+      </if>
+      <if test="displayinfo != null">
+        displayInfo = #{displayinfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hiddeninfo != null">
+        hiddenInfo = #{hiddeninfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="resourceaddr != null">
+        resourceAddr = #{resourceaddr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="postname != null">
+        postName = #{postname,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where postId = #{postid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.umi.pojo.CheckpostWithBLOBs">
+    update checkpost
+    set userId = #{userid,jdbcType=BIGINT},
+      time = #{time,jdbcType=TIMESTAMP},
+      sortId = #{sortid,jdbcType=INTEGER},
+      point = #{point,jdbcType=INTEGER},
+      source = #{source,jdbcType=BIGINT},
+      displayInfo = #{displayinfo,jdbcType=LONGVARCHAR},
+      hiddenInfo = #{hiddeninfo,jdbcType=LONGVARCHAR},
+      resourceAddr = #{resourceaddr,jdbcType=LONGVARCHAR},
+      postName = #{postname,jdbcType=LONGVARCHAR}
+    where postId = #{postid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.umi.pojo.Checkpost">
+    update checkpost
+    set userId = #{userid,jdbcType=BIGINT},
+      time = #{time,jdbcType=TIMESTAMP},
+      sortId = #{sortid,jdbcType=INTEGER},
+      point = #{point,jdbcType=INTEGER},
+      source = #{source,jdbcType=BIGINT}
+    where postId = #{postid,jdbcType=BIGINT}
+  </update>
+</mapper>

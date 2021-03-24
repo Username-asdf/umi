@@ -1,0 +1,34 @@
+.top_login{
+	display: inline-block;
+	width:200px;
+	height:42px;
+	padding:0 12px;
+}
+.top_login_text{
+	padding-right: 5px;
+	position: relative;
+	bottom: 8px; 
+}
+.top_login_img{
+	width: 32px;
+	height: 32px;
+	display: inline-block;
+	background: url(/umi/images/head1.png) no-repeat center center;
+	background-color: #ececec;
+	border-radius: 16px;
+}
+.top_menu{
+	width:100px;
+	height:120px;
+	position:absolute;
+	right:60px;
+	top: 40px;
+	background: rgb(255,255,255,0.5);
+	text-align: center;
+	border-radius: 4px;
+	display: none;
+}
+.top_menu_item{
+	padding-top: 15px;
+	
+}
