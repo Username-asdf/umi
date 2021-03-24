@@ -19,7 +19,7 @@
 
 #### 安装教程
 
-1.  创建service数据库，运行service.sql文件
+1.  创建service数据库，运行service.sql文件(放在了config文件夹下)
 2.  修改db.properties文件
 3.  注册阿里云短信服务，修改config.properties文件
 
